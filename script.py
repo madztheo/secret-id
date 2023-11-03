@@ -27,7 +27,7 @@ async def main():
     json.dump(transform_img_to_array("images/virginia.jpg"), open(cal_data_path, 'w' ))
 
     # input data
-    json.dump(transform_img_to_array("images/washington.jpg"), open(cal_data_path, 'w' ))
+    json.dump(transform_img_to_array("images/washington.jpg"), open(data_path, 'w' ))
 
     res = ezkl.gen_settings(model_path, settings_path)
     print(res)
