@@ -4,12 +4,16 @@ import ezkl
 import asyncio
 from PIL import Image
 import numpy
+import tensorflow as tf
 
-def transform_img_to_array(img_path):
-    img_data = Image.open(os.path.join(img_path))
-    x = numpy.asarray(img_data) / 255.0
-    data_array = x.reshape([-1]).tolist(),
-    data = dict(input_data = data_array),
+def transform_img(img_path):
+    img_data = Image.open(os.path.join(img_path)).convert("RGB")
+    x = numpy.asarray(img_data)
+    img = tf.image.resize(tf.convert_to_tensor(x), [28, 28])
+    img = tf.image.rgb_to_grayscale(img)
+    x = img.numpy() / 255.0
+    data_array = x.reshape([-1]).tolist()
+    data = dict(input_data = [data_array])
     return data
 
 async def main():
@@ -20,19 +24,19 @@ async def main():
     settings_path = os.path.join("settings.json")
     srs_path = os.path.join("kzg.srs")
     witness_path = os.path.join("witness.json")
-    data_path = os.path.join("sample_input.json")
-    cal_data_path = os.path.join("sample_input.json")
-    # data_path = os.path.join("input.json")
-    # cal_data_path = os.path.join("cal_data.json")
+    # data_path = os.path.join("sample_input.json")
+    # cal_data_path = os.path.join("sample_input.json")
+    data_path = os.path.join("input.json")
+    cal_data_path = os.path.join("cal_data.json")
     sol_code_path = os.path.join("verifier.sol")
     abi_path = os.path.join("verifier.abi")
     address_path = os.path.join("address.json")
 
     # calibration data
-    #json.dump(transform_img_to_array("images/virginia.jpg"), open(cal_data_path, 'w' ))
+    json.dump(transform_img("images/three.png"), open(cal_data_path, 'w' ))
 
     # input data
-    #json.dump(transform_img_to_array("images/washington.jpg"), open(data_path, 'w' ))
+    json.dump(transform_img("images/three.png"), open(data_path, 'w' ))
 
     run_args = ezkl.PyRunArgs()
     run_args.input_visibility = "private"
