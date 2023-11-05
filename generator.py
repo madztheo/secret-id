@@ -49,7 +49,7 @@ async def main():
     assert res == True
     print("settings generated")
 
-    res = await ezkl.calibrate_settings(cal_data_path, model_path, settings_path, "resources", scales = [0, 7])
+    res = await ezkl.calibrate_settings(cal_data_path, model_path, settings_path, "resources/col-overflow", scales = [0, 7])
     print("calibrated")
 
     res = ezkl.compile_circuit(model_path, compiled_model_path, settings_path)
