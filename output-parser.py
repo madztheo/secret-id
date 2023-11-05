@@ -15,9 +15,7 @@ def convert_to_float(array):
 # Now you can access the data in the witness_data variable
 outputs = numpy.array(witness_data['outputs'], dtype=numpy.uint).tolist()
 float_array = convert_to_float(outputs)
-print(float_array)
 normalized_array = tf.nn.softmax(tf.convert_to_tensor(float_array)).numpy().astype(numpy.float32).tolist()
-print(normalized_array)
 
 # Get the number with the highest confidence
 prediction = numpy.argmax(normalized_array[0])

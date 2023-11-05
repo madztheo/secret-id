@@ -36,7 +36,7 @@ async def main():
     json.dump(transform_img("images/three.png"), open(cal_data_path, 'w' ))
 
     # input data
-    json.dump(transform_img("images/three.png"), open(data_path, 'w' ))
+    json.dump(transform_img("images/six.png"), open(data_path, 'w' ))
 
     run_args = ezkl.PyRunArgs()
     run_args.input_visibility = "private"
